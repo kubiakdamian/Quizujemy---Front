@@ -1,0 +1,6 @@
+.quiz span{
+    display:table;
+    margin:0 auto;
+    margin-top: 4vh;
+    font-size: 5vh;
+}

@@ -1,0 +1,32 @@
+.nav-link{
+    width: 17vw;
+    font-weight: bold;
+    color: white !important;  
+}
+
+.nav-link:hover{
+    color: #5c77b1 !important; 
+}
+
+.navbar{
+    background-color: #1e1f26 !important;
+    margin-bottom: 2vh;
+}
+
+.navbar-brand{
+    color: white !important;
+    font-family: 'Gugi', cursive;
+    font-size: 220%;
+    margin-right: 20vw;
+}
+
+.navbar-toggler-icon{
+    background-color: gray !important;
+    border-radius: 15%;
+}
+
+.mynav{
+    top: 0;
+    position: sticky;
+    z-index: 4;
+}
