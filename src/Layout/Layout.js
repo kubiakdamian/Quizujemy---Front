@@ -15,16 +15,22 @@ export default class Layout extends React.Component{
                     </button>
                     <div className="collapse navbar-collapse" id="navbarText">
                         <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="/quizes">Quizy <span className="sr-only">(current)</span></a>
-                        </li>
-                        <li className="nav-item" style={{paddingRight: "3vw"}}>
-                            <a className="nav-link" href="/curiosities">Ciekawostki</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="/learning">Nauka</a>
-                        </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" href="/quizes">Quizy <span className="sr-only">(current)</span></a>
+                            </li>
+                            <li className="nav-item" style={{paddingRight: "3vw"}}>
+                                <a className="nav-link" href="/curiosities">Ciekawostki</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/learning">Nauka</a>
+                            </li>
                         </ul>
+                        <a className="nav-session" href="/learning">
+                            <img
+                                src={require('../images/user.png')}
+                                style={{ width: "5vh"}}
+                            />
+                        </a>
                     </div>
                 </nav>
             </div>

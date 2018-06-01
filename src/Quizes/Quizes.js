@@ -2,11 +2,26 @@ import React, { Component } from 'react';
 import styled from "styled-components";
 import QuizPanel from "./QuizPanel.js";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 export default class Quizes extends Component {
 
     openHistoryQuiz = () => {
         this.props.history.push("/quiz")
+    }
+
+    componentDidMount(){
+        axios
+      .get(`http://localhost:8080/api/employees`)
+      .then(response => {
+        console.log("employees", response);
+        // this.setState({
+        //   meals: response.data.results
+        // })
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
 
     render() {
