@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import styled from "styled-components";
 import QuizPanel from "./QuizPanel.js";
-import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 export default class Quizes extends Component {

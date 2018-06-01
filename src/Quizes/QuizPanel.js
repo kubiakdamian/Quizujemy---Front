@@ -14,6 +14,7 @@ class QuizPanel extends Component {
                 <img
                     src={require('../images/' + this.props.path)}
                     style={{ width: "15vh", float: "left"}}
+                    alt = ""
                 />
                 <Title>{this.props.title}</Title>
             </Quiz>

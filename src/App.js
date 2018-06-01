@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import Home from './Home';
@@ -10,7 +9,6 @@ import Quizes from './Quizes/Quizes';
 import Curiosities from './Curiosities';
 import Learning from './Learning';
 import QuizPage from './Quizes/QuizPage';
-import styled from "styled-components";
 
 export default class App extends Component {
   render() {

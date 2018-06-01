@@ -41,7 +41,3 @@ const Image = styled.div`
     padding-bottom: 5vh;
 `
 
-const Timer = styled.div`
-
-`
-

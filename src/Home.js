@@ -41,6 +41,7 @@ export default class Home extends React.Component{
                         <img
                             src={require("./images/bulb.png")}
                             style={{ width: "15vh", float: "left"}}
+                            alt = ""
                         />
                         <BulbText>
                             Czy wiesz że...
@@ -65,6 +66,7 @@ export default class Home extends React.Component{
                         <img
                             src={require("./images/questionMark.png")}
                             style={{ width: "12vh"}}
+                            alt = "Random quiz"
                         />
                     </Quiz>
                 </div>

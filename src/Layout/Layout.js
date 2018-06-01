@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from "styled-components";
 import "./style.css"
 
 export default class Layout extends React.Component{
@@ -29,6 +28,7 @@ export default class Layout extends React.Component{
                             <img
                                 src={require('../images/user.png')}
                                 style={{ width: "5vh"}}
+                                alt = "Sing In"
                             />
                         </a>
                     </div>
