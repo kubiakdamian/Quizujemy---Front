@@ -9,6 +9,7 @@ import Quizes from './Quizes/Quizes';
 import Curiosities from './Curiosities';
 import Learning from './Learning';
 import QuizPage from './Quizes/QuizPage';
+import SignUp from './Session/SignUp';
 
 export default class App extends Component {
   render() {
@@ -21,6 +22,7 @@ export default class App extends Component {
             <Route path="/curiosities" component={Curiosities} />
             <Route path="/learning" component={Learning} />
             <Route path="/quiz" component={QuizPage} />
+            <Route path="/signup" component={SignUp} />
         </div>
       </Router>
     );

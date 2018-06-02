@@ -9,10 +9,13 @@ export default class Home extends React.Component{
         super();
     
         this.state = {
-          curiosity : ""
+          curiosity : "",
+          articles: [],
+          articlesNumber: 0
         };
     
         this.getCuriosity(); 
+        this.getArticles();
       }
 
       getCuriosity = () => {
@@ -29,50 +32,85 @@ export default class Home extends React.Component{
         });
       }
 
-    // componentWillMount(){
-    //     this.getArticles(); 
-    // }
+      getArticles = () => {
+        axios
+        .get(`http://localhost:8080/articles`)
+        .then(response => {
+          this.setState({
+            articles: response.data.content,
+            articlesNumber: response.data.content.length
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
 
-    render(){
-        return(
-            <div className="container-fluid">
-                <div className="row">
-                    <Curiosity className="col-lg-6 offset-lg-3">
-                        <img
-                            src={require("./images/bulb.png")}
-                            style={{ width: "15vh", float: "left"}}
-                            alt = ""
-                        />
-                        <BulbText>
-                            Czy wiesz że...
-                        </BulbText>
-                        <CuriosityText>
-                            {this.state.curiosity}
-                        </CuriosityText>
-                    </Curiosity>
-                    <Article className="col-lg-3 offset-lg-3" style={{backgroundColor: "#283655", color: "#e6ebf4"}}>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </Article>
-                    <Article className="col-lg-3">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </Article>
-                    <Article className="col-lg-3 offset-lg-3">
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </Article>
-                    <Article className="col-lg-3" style={{backgroundColor: "#283655", color: "#e6ebf4"}}>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                    </Article>
-                    <Quiz className="col-lg-6 offset-lg-3" data-tip="Rozwiąż losowy quiz!">
-                        <img
-                            src={require("./images/questionMark.png")}
-                            style={{ width: "12vh"}}
-                            alt = "Random quiz"
-                        />
-                    </Quiz>
-                </div>
-                <ReactTooltip place="top" type="dark" effect="float"/>
-            </div>        
-        );
+    render(){     
+        if(this.state.articles.length < 4 || this.state.curiosity <= 0){
+            return(<div>Loading data...</div>)
+        }else{
+            console.log('link', `"${this.state.articles[this.state.articlesNumber-1].image}"`)
+            return(
+                <div className="container-fluid">
+                    <div className="row">
+                        <Curiosity className="col-lg-6 offset-lg-3">
+                            <img
+                                src={require("./images/bulb.png")}
+                                style={{ width: "15vh", float: "left"}}
+                                alt = ""
+                            />
+                            <BulbText>
+                                Czy wiesz że...
+                            </BulbText>
+                            <CuriosityText>
+                                {this.state.curiosity}
+                            </CuriosityText>
+                        </Curiosity>
+                        <Article className="col-lg-3 offset-lg-3">
+                            <img
+                                src={`${this.state.articles[this.state.articlesNumber-1].image}`}
+                                style={{ width: "100%", height: "100%"}}
+                                alt = ""
+                            />
+                            <Title>{this.state.articles[this.state.articlesNumber-1].title}</Title>
+                        </Article>
+                        <Article className="col-lg-3">
+                             <img
+                                src={`${this.state.articles[this.state.articlesNumber-2].image}`}
+                                style={{ width: "100%", height: "100%"}}
+                                alt = ""
+                            />
+                            <Title>{this.state.articles[this.state.articlesNumber-2].title}</Title>                       
+                        </Article>
+                        <Article className="col-lg-3 offset-lg-3"> 
+                            <img
+                                src={`${this.state.articles[this.state.articlesNumber-3].image}`}
+                                style={{ width: "100%", height: "100%"}}
+                                alt = ""
+                            />
+                            <Title>{this.state.articles[this.state.articlesNumber-3].title}</Title> 
+                        </Article>
+                        <Article className="col-lg-3">
+                            <img
+                                src={`${this.state.articles[this.state.articlesNumber-4].image}`}
+                                style={{ width: "100%", height: "100%"}}
+                                alt = ""
+                            />
+                            <Title>{this.state.articles[this.state.articlesNumber-4].title}</Title> 
+                        </Article>
+                        <Quiz className="col-lg-6 offset-lg-3" data-tip="Rozwiąż losowy quiz!">
+                            <img
+                                src={require("./images/questionMark.png")}
+                                style={{ width: "12vh"}}
+                                alt = "Random quiz"
+                            />
+                        </Quiz>
+                    </div>
+                    <ReactTooltip place="top" type="dark" effect="float"/>
+                </div>        
+            );
+        }
     }
 }
 
@@ -104,12 +142,17 @@ const CuriosityText = styled.div`
 `
 
 const Article = styled.div`
+    height: 31vh;
     margin-top: 2vh;
-    background-color: #505456;
     background-clip: padding-box;
     color: #fff;
+    text-align: center;
     @media screen and (min-width: 800px) {
         border: 5px solid transparent;
+        /* margin-bottom: 5vh; */
+    } 
+    @media screen and (max-width: 600px) {
+        margin-bottom: 5vh;
     } 
     &:hover{
         cursor: pointer;
@@ -133,4 +176,12 @@ const Quiz = styled.div`
 	    margin-right: auto;
 	    display: block;
     }
+`
+
+const Title = styled.div`
+    position: relative;
+    bottom: 25vh;
+    margin:auto;
+    font-size: 3vh;
+    vertical-align:middle;
 `

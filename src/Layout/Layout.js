@@ -24,7 +24,7 @@ export default class Layout extends React.Component{
                                 <a className="nav-link" href="/learning">Nauka</a>
                             </li>
                         </ul>
-                        <a className="nav-session" href="/learning">
+                        <a className="nav-session" href="/signup">
                             <img
                                 src={require('../images/user.png')}
                                 style={{ width: "5vh"}}
