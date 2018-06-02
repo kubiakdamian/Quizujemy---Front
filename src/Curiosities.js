@@ -41,7 +41,7 @@ export default class Curiosities extends Component {
     }
 
     nextPage = () => {
-        if(this.state.page != this.state.totalPages - 1){
+        if(this.state.page !== this.state.totalPages - 1){
             this.setState({
                 page: this.state.page + 1
             })

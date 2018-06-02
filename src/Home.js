@@ -198,14 +198,3 @@ const Quiz = styled.div`
 	    display: block;
     }
 `
-
-const Title = styled.div`
-    position: relative;
-    background-color:rgba(0, 0, 0, 0.6);
-    bottom: 14vh;
-    left: 0;
-    margin:auto;
-    font-size: 3vh;
-    vertical-align:middle;
-    z-index: 4;
-`
