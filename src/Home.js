@@ -20,7 +20,7 @@ export default class Home extends React.Component{
 
       getCuriosity = () => {
         axios
-        .get(`http://localhost:8080/api/all`)
+        .get(`http://localhost:8080/curiosities`)
         .then(response => {
           let rand  = Math.floor((Math.random() * response.data.length));
           this.setState({
@@ -36,9 +36,10 @@ export default class Home extends React.Component{
         axios
         .get(`http://localhost:8080/articles`)
         .then(response => {
+            console.log(response);
           this.setState({
-            articles: response.data.content,
-            articlesNumber: response.data.content.length
+            articles: response.data,
+            articlesNumber: response.data.length
           })
         })
         .catch(error => {
@@ -163,7 +164,7 @@ const Article = styled.div`
     p{
     position: absolute;
     display: block;
-    width: 93%;
+    width: 93.4%;
     height: 30%;
     background-color: black;
     left: 15px;
@@ -173,7 +174,7 @@ const Article = styled.div`
     color:white;
     opacity: 0.95;
     @media screen and (max-width: 600px) {
-        font-size: 3vh;
+        font-size: 2.5vh;
         width: 91.7%;
     } 
   }
