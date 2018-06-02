@@ -9,20 +9,16 @@ export default class Curiosities extends Component {
     
         this.state = {
             curiosities: [],
-            page: 1,
+            page: 0,
             totalPages: 0
         };    
 
         this.getCuriosities(this.state.page);
     }
 
-    // componentDidMount(){
-    //     this.getCuriosities();
-    // }
-
     getCuriosities = number => {
             axios
-            .get(`http://localhost:8080/curiosities/paginated?page=${number}&size=7`)
+            .get(`http://localhost:8080/curiosities/paginated?page=${number}&size=7&sort=idcuriosities,desc`)
             .then(response => {
             this.setState({
                     curiosities: response.data.content,
@@ -58,15 +54,15 @@ export default class Curiosities extends Component {
         return (
             <div>
                 <div>
-                    {this.state.curiosities.map(i => 
-                    <Curiosity className="col-lg-6 offset-lg-3">
+                    {this.state.curiosities.map((i, index)=> 
+                    <Curiosity className="col-lg-6 offset-lg-3" key={index}>
                         <CuriosityText>
                             {i.content}
                         </CuriosityText>
                     </Curiosity>
                     )}
                 </div>
-                <Pagination className="col-lg-6 offset-lg-3">
+                <Pagination className="col-lg-2 offset-lg-5">
                     <nav aria-label="Page navigation example">
                     <ul className="pagination">
                         <li className="page-item" onClick={this.previousPage}>
