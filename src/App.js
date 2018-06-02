@@ -10,6 +10,7 @@ import Curiosities from './Curiosities';
 import Learning from './Learning';
 import QuizPage from './Quizes/QuizPage';
 import SignUp from './Session/SignUp';
+import Article from './Article'
 
 export default class App extends Component {
   render() {
@@ -23,6 +24,7 @@ export default class App extends Component {
             <Route path="/learning" component={Learning} />
             <Route path="/quiz" component={QuizPage} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/article/:id" component={Article} />
         </div>
       </Router>
     );

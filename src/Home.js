@@ -46,11 +46,14 @@ export default class Home extends React.Component{
         });
       }
 
+      openArticle = articleId => {
+        this.props.history.push(`article/${articleId}`)
+      }
+
     render(){     
         if(this.state.articles.length < 4 || this.state.curiosity <= 0){
             return(<div>Loading data...</div>)
         }else{
-            console.log('link', `"${this.state.articles[this.state.articlesNumber-1].image}"`)
             return(
                 <div className="container-fluid">
                     <div className="row">
@@ -67,7 +70,7 @@ export default class Home extends React.Component{
                                 {this.state.curiosity}
                             </CuriosityText>
                         </Curiosity>
-                        <Article className="col-lg-3 offset-lg-3">
+                        <Article className="col-lg-3 offset-lg-3" onClick={() => {this.props.history.push(`article/${this.state.articles[this.state.articlesNumber-1].id}`)}}>
                             <img
                                 src={`${this.state.articles[this.state.articlesNumber-1].image}`}
                                 style={{ width: "100%", height: "100%"}}
@@ -75,7 +78,7 @@ export default class Home extends React.Component{
                             />
                             <p>{this.state.articles[this.state.articlesNumber-1].title}</p>
                         </Article>
-                        <Article className="col-lg-3">
+                        <Article className="col-lg-3" onClick={() => {this.props.history.push(`article/${this.state.articles[this.state.articlesNumber-2].id}`)}}>
                              <img
                                 src={`${this.state.articles[this.state.articlesNumber-2].image}`}
                                 style={{ width: "100%", height: "100%"}}
@@ -83,7 +86,7 @@ export default class Home extends React.Component{
                             />
                             <p>{this.state.articles[this.state.articlesNumber-2].title}</p>                       
                         </Article>
-                        <Article className="col-lg-3 offset-lg-3"> 
+                        <Article className="col-lg-3 offset-lg-3" onClick={() => {this.props.history.push(`article/${this.state.articles[this.state.articlesNumber-3].id}`)}}> 
                             <img
                                 src={`${this.state.articles[this.state.articlesNumber-3].image}`}
                                 style={{ width: "100%", height: "100%"}}
@@ -91,7 +94,7 @@ export default class Home extends React.Component{
                             />
                             <p>{this.state.articles[this.state.articlesNumber-3].title}</p> 
                         </Article>
-                        <Article className="col-lg-3">
+                        <Article className="col-lg-3" onClick={() => {this.props.history.push(`article/${this.state.articles[this.state.articlesNumber-4].id}`)}}>
                             <img
                                 src={`${this.state.articles[this.state.articlesNumber-4].image}`}
                                 style={{ width: "100%", height: "100%"}}
