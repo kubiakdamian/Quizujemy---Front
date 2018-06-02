@@ -73,7 +73,7 @@ export default class Home extends React.Component{
                                 style={{ width: "100%", height: "100%"}}
                                 alt = ""
                             />
-                            <Title>{this.state.articles[this.state.articlesNumber-1].title}</Title>
+                            <p>{this.state.articles[this.state.articlesNumber-1].title}</p>
                         </Article>
                         <Article className="col-lg-3">
                              <img
@@ -81,7 +81,7 @@ export default class Home extends React.Component{
                                 style={{ width: "100%", height: "100%"}}
                                 alt = ""
                             />
-                            <Title>{this.state.articles[this.state.articlesNumber-2].title}</Title>                       
+                            <p>{this.state.articles[this.state.articlesNumber-2].title}</p>                       
                         </Article>
                         <Article className="col-lg-3 offset-lg-3"> 
                             <img
@@ -89,7 +89,7 @@ export default class Home extends React.Component{
                                 style={{ width: "100%", height: "100%"}}
                                 alt = ""
                             />
-                            <Title>{this.state.articles[this.state.articlesNumber-3].title}</Title> 
+                            <p>{this.state.articles[this.state.articlesNumber-3].title}</p> 
                         </Article>
                         <Article className="col-lg-3">
                             <img
@@ -97,7 +97,7 @@ export default class Home extends React.Component{
                                 style={{ width: "100%", height: "100%"}}
                                 alt = ""
                             />
-                            <Title>{this.state.articles[this.state.articlesNumber-4].title}</Title> 
+                            <p>{this.state.articles[this.state.articlesNumber-4].title}</p> 
                         </Article>
                         <Quiz className="col-lg-6 offset-lg-3" data-tip="Rozwiąż losowy quiz!">
                             <img
@@ -152,11 +152,28 @@ const Article = styled.div`
         /* margin-bottom: 5vh; */
     } 
     @media screen and (max-width: 600px) {
-        margin-bottom: 5vh;
+        margin-bottom: 2vh;
     } 
     &:hover{
         cursor: pointer;
     }
+    p{
+    position: absolute;
+    display: block;
+    width: 93%;
+    height: 30%;
+    background-color: black;
+    left: 15px;
+    bottom: -15px;
+    font-size: 2vh;
+    text-align:center;
+    color:white;
+    opacity: 0.95;
+    @media screen and (max-width: 600px) {
+        font-size: 3vh;
+        width: 91.7%;
+    } 
+  }
 `
 
 const Quiz = styled.div`
@@ -180,8 +197,11 @@ const Quiz = styled.div`
 
 const Title = styled.div`
     position: relative;
-    bottom: 25vh;
+    background-color:rgba(0, 0, 0, 0.6);
+    bottom: 14vh;
+    left: 0;
     margin:auto;
     font-size: 3vh;
     vertical-align:middle;
+    z-index: 4;
 `
