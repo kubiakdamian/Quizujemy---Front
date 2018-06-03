@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import QuizPanel from "./QuizPanel.js";
 
 export default class Quizes extends Component {
-
-    openHistoryQuiz = () => {
-        this.props.history.push("/quiz")
-    }
-
     render() {
         return (
             <div className="container-fluid">

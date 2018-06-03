@@ -6,10 +6,10 @@ export default class Question extends Component {
         return (      
             <div className="col-md-10 offset-md-1">
                 <QuestionText>{this.props.title}</QuestionText>
-                <Answer onClick={this.props.answerChosen}>{this.props.first}</Answer>
-                <Answer onClick={this.props.answerChosen}>{this.props.second}</Answer>
-                <Answer onClick={this.props.answerChosen}>{this.props.third}</Answer>
-                <Answer onClick={this.props.answerChosen}>{this.props.fourth}</Answer>
+                <Answer onClick={() => this.props.answerChosen(this.props.first)}>{this.props.first}</Answer>
+                <Answer onClick={() => this.props.answerChosen(this.props.second)}>{this.props.second}</Answer>
+                <Answer onClick={() => this.props.answerChosen(this.props.third)}>{this.props.third}</Answer>
+                <Answer onClick={() => this.props.answerChosen(this.props.fourth)}>{this.props.fourth}</Answer>
             </div>
         );
     }     
