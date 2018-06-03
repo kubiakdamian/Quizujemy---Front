@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import QuizPanel from "./QuizPanel.js";
-import axios from "axios";
 
 export default class Quizes extends Component {
 
@@ -8,25 +7,11 @@ export default class Quizes extends Component {
         this.props.history.push("/quiz")
     }
 
-    componentDidMount(){
-        axios
-      .get(`http://localhost:8080/api/employees`)
-      .then(response => {
-        console.log("employees", response);
-        // this.setState({
-        //   meals: response.data.results
-        // })
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
-
     render() {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <QuizPanel title="History" styleName="col-lg-3 offset-lg-3" color="#bf3737" path="history.png" openQuiz={this.openHistoryQuiz}/>
+                    <QuizPanel title="History" styleName="col-lg-3 offset-lg-3" color="#bf3737" path="history.png" openQuiz={() => {this.props.history.push(`quiz/1`)}}/>
                     <QuizPanel title="Computers" styleName="col-lg-3" color="#3091b2" path="computers.png" />
                     <QuizPanel title="Chemistry" styleName="col-lg-3 offset-lg-3" color="#8c397b" path="chemistry.png" />
                     <QuizPanel title="Geography" styleName="col-lg-3" color="#ed8a21" path="geography.png" />          

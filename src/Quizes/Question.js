@@ -3,16 +3,16 @@ import styled from "styled-components";
 
 export default class Question extends Component {
     render() {
-        return (
+        return (      
             <div className="col-md-10 offset-md-1">
-                <QuestionText>W którym roku rozpoczęła się I Wojna Światowa?</QuestionText>
-                <Answer>1908</Answer>
-                <Answer>1914</Answer>
-                <Answer>1918</Answer>
-                <Answer>1939</Answer>
+                <QuestionText>{this.props.title}</QuestionText>
+                <Answer onClick={this.props.answerChosen}>{this.props.first}</Answer>
+                <Answer onClick={this.props.answerChosen}>{this.props.second}</Answer>
+                <Answer onClick={this.props.answerChosen}>{this.props.third}</Answer>
+                <Answer onClick={this.props.answerChosen}>{this.props.fourth}</Answer>
             </div>
         );
-    }
+    }     
 }
 
 const QuestionText = styled.div`

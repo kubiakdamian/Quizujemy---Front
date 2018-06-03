@@ -22,7 +22,7 @@ export default class App extends Component {
             <Route path="/quizes" component={Quizes} />
             <Route path="/curiosities" component={Curiosities} />
             <Route path="/learning" component={Learning} />
-            <Route path="/quiz" component={QuizPage} />
+            <Route path="/quiz/:id" component={QuizPage} />
             <Route path="/signup" component={SignUp} />
             <Route path="/article/:id" component={Article} />
         </div>
