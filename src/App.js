@@ -11,6 +11,7 @@ import Learning from './Learning';
 import QuizPage from './Quizes/QuizPage';
 import SignUp from './Session/SignUp';
 import SignIn from './Session/SignIn';
+import UserPanel from "./UserPanel"
 import Article from './Article';
 import QuizCompleted from './Quizes/QuizCompleted';
 
@@ -27,6 +28,7 @@ export default class App extends Component {
             <Route path="/quiz/:id" component={QuizPage} />
             <Route path="/signup" component={SignUp} />
             <Route path="/signin" component={SignIn} />
+            <Route path="/userpanel" component={UserPanel} />
             <Route path="/article/:id" component={Article} />
             <Route path="/quizCompleted/:points/:maxPoints/:id" component={QuizCompleted} />
         </div>

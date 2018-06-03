@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Input from "../user-interface/Input";
 import Button from "../user-interface/Button";
 import axios from "axios";
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
 import { callToast } from "../user-interface/alert";
 import { toast } from "react-toastify";
 
@@ -48,7 +50,9 @@ class SignIn extends Component {
             this.props.dispatch({
                 type: "LOGIN",
                 data: {
-                  user: response.data
+                    email: response.data.email,
+                    id: response.data.id,
+                    role: response.data.role
                 }
               });
             callToast(
@@ -101,7 +105,7 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn;
+export default connect()(withRouter(SignIn));
 
 const options = {
   autoClose: 3000,

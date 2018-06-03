@@ -1,8 +1,21 @@
 import React from 'react';
-import "./style.css"
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import _ from "lodash";
+import "./style.css";
 
-export default class Layout extends React.Component{
+class Layout extends React.Component{
+
+    moveToUserPanel = () => {
+        if(!_.isEmpty(this.props.user)){
+            this.props.history.push("/userpanel");         
+        }else{
+            this.props.history.push("/signin");
+        }     
+    }
+
     render(){
+        console.log(this.props.user);
         return(
             <div className="mynav">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -24,7 +37,7 @@ export default class Layout extends React.Component{
                                 <a className="nav-link" href="/learning">Nauka</a>
                             </li>
                         </ul>
-                        <a className="nav-session" href="/signup">
+                        <a className="nav-session" onClick={this.moveToUserPanel}>
                             <img
                                 src={require('../images/user.png')}
                                 style={{ width: "5vh"}}
@@ -37,3 +50,11 @@ export default class Layout extends React.Component{
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      user: state.session.user
+    };
+  };
+
+export default connect(mapStateToProps)(withRouter(Layout));
