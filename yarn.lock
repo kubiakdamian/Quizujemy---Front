@@ -5670,6 +5670,14 @@ react-bootstrap@^0.32.1:
     uncontrollable "^4.1.0"
     warning "^3.0.0"
 
+react-circle-progress@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-circle-progress/-/react-circle-progress-1.0.6.tgz#56970d219d80e61f2dffe26d73e09900c54c1b04"
+
+react-circle@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-circle/-/react-circle-1.0.3.tgz#447055b1c8cfb977ef17c62b9438e9dd3288de02"
+
 react-countdown-clock@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-countdown-clock/-/react-countdown-clock-2.4.0.tgz#870c1500292ac6c62dabd8e615f03f190128ce64"

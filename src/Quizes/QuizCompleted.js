@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import axios from "axios";
+import { withRouter } from "react-router";
+import { connect } from "react-redux";
 
 class QuizCompleted extends Component {
     constructor() {
@@ -14,6 +16,7 @@ class QuizCompleted extends Component {
 
     componentDidMount(){
         this.getQuestions();
+        this.getStatisticsId();
       }
 
     getQuestions = () => {
@@ -26,6 +29,43 @@ class QuizCompleted extends Component {
             response.data.map(i => {
                 this.getAnswers(i.id)
             })
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    calculateAnswered = (answers) => {
+        var result = 0;
+        result = answers + parseInt(this.props.match.params.maxPoints);
+        return result;
+    }
+
+    calculateCorrect = (correct) => {
+        var result = 0;
+        result = correct + parseInt(this.props.match.params.points);
+        return result;
+    }
+
+    updateStatistics = (id, answers, correct) => {
+        axios.put(`http://localhost:8080/statistics/${id}`, {
+            "answeredQuestions": this.calculateAnswered(answers),
+            "correctAnswers": this.calculateCorrect(correct)
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    getStatisticsId = () => {
+        axios
+        .get(`http://localhost:8080/user/${this.props.user.id}/statistics`)
+        .then(response => {
+            console.log('staty', response.data[0].id);
+            this.updateStatistics(response.data[0].id, response.data[0].answeredQuestions, response.data[0].correctAnswers)
         })
         .catch(error => {
           console.log(error);
@@ -69,7 +109,13 @@ class QuizCompleted extends Component {
     }
 }
 
-export default QuizCompleted;
+const mapStateToProps = state => {
+    return {
+      user: state.session.user
+    };
+  };
+
+export default connect(mapStateToProps)(withRouter(QuizCompleted));
 
 const Points = styled.div`
     text-align: center;
