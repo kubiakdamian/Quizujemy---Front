@@ -40,7 +40,7 @@ export default class QuizPage extends Component {
 
     getAnswers = number => {
         if(this.state.progress >= 100 - 100 / this.state.questions.length){
-            this.props.history.push(`/quizCompleted/${this.state.points}`);
+            this.props.history.push(`/quizCompleted/${this.state.points}/${this.state.questions.length}/${this.props.match.params.id}`);
         }else{
             axios
             .get(`http://localhost:8080/questions/${number}/answers`)

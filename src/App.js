@@ -26,7 +26,7 @@ export default class App extends Component {
             <Route path="/quiz/:id" component={QuizPage} />
             <Route path="/signup" component={SignUp} />
             <Route path="/article/:id" component={Article} />
-            <Route path="/quizCompleted/:points" component={QuizCompleted} />
+            <Route path="/quizCompleted/:points/:maxPoints/:id" component={QuizCompleted} />
         </div>
       </Router>
     );
