@@ -18,13 +18,18 @@ class Button extends React.Component {
 export default Button;
 
 const StyledButton = styled.button`
-  border-radius: 5px;
-  border: none;
-  height: 40px;
-  box-shadow: 7px 6px 17px -2px rgba(0, 0, 0, 0.75);
-  text-shadow: 7px 6px 17px -2px rgba(0, 0, 0, 0.75);
-  outline: 0;
-  color: rgb(255, 255, 255);
-  font-size: 20px;
-  font-family: 'Julee', cursive;
+    border-radius: 5px;
+    border: none;
+    height: 40px;
+    box-shadow: 7px 6px 17px -2px rgba(0, 0, 0, 0.75);
+    text-shadow: 7px 6px 17px -2px rgba(0, 0, 0, 0.75);
+    outline: 0;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family: 'Julee', cursive;
+
+    &:hover{
+      cursor: pointer;
+      opacity: 0.7;
+    }
 `;

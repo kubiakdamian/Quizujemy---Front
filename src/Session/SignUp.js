@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Input from "../user-interface/Input";
 import Button from "../user-interface/Button";
-// var $ = require('jquery');
+import axios from "axios";
+import { callToast } from "../user-interface/alert";
+import { toast } from "react-toastify";
 
 class SignUp extends Component {
   constructor(props) {
@@ -12,7 +14,6 @@ class SignUp extends Component {
       username: "",
       password: ""
     };
-    // this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   updateEmail = e => {
@@ -33,49 +34,78 @@ class SignUp extends Component {
     });
   };
 
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //     $.ajax({
-  //       url: process.env.NODE_ENV !== "production" ? 'http://localhost:8080/api/all' : "http://localhost:8080/api/all",
-  //       // url: "./php/mailer.php",
-  //       type: 'POST',
-  //       data: {
-  //         'login': this.state.login,
-  //         'password': this.state.password,
-  //         'nick': this.state.nick
-  //       },
-  //       success: function (data) {
-  //         this.state.loginCheck = data;
-  //         if (this.state.loginCheck == "Login not unique") {
-  //           // callToast("Użytkownik już istnieje!");
-  //           console.log("Użytkownik już istnieje");
-  //         }
-  //         else if (this.state.loginCheck == "notExist") {
-  //           // callToast("Zarejestrowano, proszę się zalogować");
-  //           // this.props.modalClose();
-  //           console.log("Zarejestrowano, proszę się zalogować");
-  //         }
-  //         else if (this.state.loginCheck == "Nick not unique") {
-  //           // callToast("Ten nick jest już zajęty!");
-  //           console.log("Ten nick jest już zajęty");
-  //         }
+  validateEmail = email => {
+    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
+  };
 
+  checkConditions = () => {
+    if (
+      this.state.password.length >= 8 &&
+      this.validateEmail(this.state.email)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-  //       }.bind(this),
-  //       error: function (xhr, status, err) {
-  //         console.log(xhr, status);
-  //         console.log(err);
-  //         this.setState({
-  //           contactMessage: 'Błąd',
-  //         });
-  //       }.bind(this)
-  //     });   
-  // };
+  clearForm = () => {
+    this.setState({
+      email: "",
+      username: "",
+      password: ""
+    })
+  }
+
+  wrongRegistrationAlerts = () => {
+    if (
+      this.state.password.length < 8 &&
+      !this.validateEmail(this.state.login)
+    ) {
+      callToast("Wprowadzone hasło jest za krótkie oraz podano nieprawidłowy adres e-mail.");
+    } else if (!this.validateEmail(this.state.email)) {
+      callToast("Wprowadzony adres e-mail nie jest poprawny.");
+    } else {
+      callToast(
+        "Wprowadzone hasło jest za krótkie. Wprowadź hasło zawierające conajmniej 8 znaków."
+      );
+    }
+    this.clearForm();
+  };
+
+  register = () => {
+    if(this.checkConditions()){
+        axios.post('http://localhost:8080/register', {
+          "username": this.state.username,
+          "email": this.state.email,
+          "password": this.state.password,
+          "role": 2     
+      })
+      .then(function (response) {
+        console.log(response);
+        callToast(
+          "Zarejestrowany pomyślnie."
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+        callToast("Podany adres e-mail już istnieje");
+      });
+    }else{
+      this.wrongRegistrationAlerts();
+    }   
+  }
+
+  switchToSignIn = () => {
+    this.props.history.push("/signin");
+  }
 
     render() {
         return (
+          <div>
+              <Header>Rejestracja</Header>
               <Container className="col-lg-2 offset-lg-5">
-                <form onSubmit={this._handleSubmit}>
                   <Input
                     onChange={this.updateEmail}
                     value={this.state.email}
@@ -101,18 +131,24 @@ class SignUp extends Component {
                     required />
       
                   <StyledButton
-                    onClick={event => {
-                      this.onSubmit;
-                    }}
+                    onClick={this.register}               
                     label={"Zarejestruj się"}
                   />
-                </form>
+                  <a onClick={this.switchToSignIn}>Zaloguj się</a>
               </Container>
-          );
+            </div>
+          );        
     }
 }
 
 export default SignUp;
+
+const options = {
+  autoClose: 3000,
+  type: toast.TYPE.WARN,
+  hideProgressBar: false,
+  position: toast.POSITION.TOP_CENTER
+};
 
 const StyledButton = styled(Button) `
   background-color: rgb(124, 132, 131);
@@ -123,5 +159,24 @@ const StyledButton = styled(Button) `
 `;
 
 const Container = styled.div`
-  margin-top: 25vh;
+  margin-top: 5vh;
+  color: blue;
+  a{
+    font-size: 2vh;
+    float: right;
+    &:hover{
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 600px) {
+      font-size: 3vh;
+    } 
+  }
+`
+
+const Header = styled.div`
+  margin-top: 5vh;
+  font-size: 7vh;
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
 `
