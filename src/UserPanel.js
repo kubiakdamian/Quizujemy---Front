@@ -5,12 +5,15 @@ import styled from "styled-components";
 import Button from "./user-interface/Button";
 import axios from "axios";
 import Circle from 'react-circle';
+import { callToast } from "./user-interface/alert";
+import { toast } from "react-toastify";
 
 class UserPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            statistics: {}
+            statistics: {},
+            curiosity: ""
         };
     }
 
@@ -54,11 +57,40 @@ class UserPanel extends Component {
     }
 
     getPercentage = () => {
-        if(this.state.statistics.answeredQuestions === 0){
-            return 0;
+        if(this.state.statistics === undefined){
+            if(this.state.statistics.answeredQuestions === 0){
+                return 0;
+            }else{
+                return Math.round(this.state.statistics.correctAnswers / this.state.statistics.answeredQuestions * 100);
+            }
         }else{
-            return this.state.statistics.correctAnswers / this.state.statistics.answeredQuestions * 100;
+            return 0;
         }
+    }
+
+    updateContent = e => {
+        this.setState({
+            curiosity: e.target.value
+        });
+      };
+
+      clearContent = () => {
+        this.setState({
+            curiosity: ""
+        });
+      }
+
+    addCuriosity = () => {
+        axios
+        .post(`http://localhost:8080/anteroom/add`, {content: this.state.curiosity})
+        .then(response => {
+            this.clearContent();
+            callToast("Pomyślnie dodano ciekawostkę");
+        })
+        .catch(error => {
+          console.log(error);
+          callToast("Dodawanie ciekawostki nie powiodło się");
+        });
     }
 
     render() {
@@ -94,12 +126,33 @@ class UserPanel extends Component {
                     />
                 </CircleContainer>
                 <Text>{this.state.statistics.correctAnswers} / {this.state.statistics.answeredQuestions} poprawnych odpowiedzi</Text>
-                <ButtonContainer className="col-lg-2 offset-lg-5">
+                <Text>
+                    Dowiedziałeś się czegoś ciekawego? Podziel się tym z nami, a może trafisz na stronę główną!
+                </Text>
+                <InputContainer className="col-lg-6 offset-lg-3">
+                    <div className="form-group">
+                        <label for="exampleFormControlTextarea1">Twoja ciekawostka</label>
+                        <textarea 
+                            className="form-control"
+                            id="exampleFormControlTextarea1"
+                            rows="3"
+                            onChange={this.updateContent}
+                            value={this.state.curiosity} />
+                    </div>
+                    <CuriosityButtonContainer>
+                        <StyledButton
+                            style={{backgroundColor: "rgb(43, 124, 255)"}}
+                            onClick={this.addCuriosity}               
+                            label={"Wyślij"}
+                        />
+                    </CuriosityButtonContainer>
+                </InputContainer>
+                <LogoutButtonContainer className="col-lg-2 offset-lg-5">
                     <StyledButton
                         onClick={this.logout}               
                         label={"Wyloguj się"}
                     />
-                </ButtonContainer>            
+                </LogoutButtonContainer>            
             </div>
         );
     }
@@ -129,13 +182,21 @@ const StyledButton = styled(Button) `
   width: 100%;
 `;
 
-const ButtonContainer = styled.div`
+const LogoutButtonContainer = styled.div`
   margin-top: 5vh;
   position: fixed;
   bottom: 5px;
 `
 
+const CuriosityButtonContainer = styled.div`
+`
+
 const CircleContainer = styled.div`
   margin-top: 5vh;
+`
+
+const InputContainer = styled.div`
+  margin-top: 5vh;
+  margin-bottom: 10vh;
 `
 

@@ -82,11 +82,12 @@ class SignUp extends Component {
           "password": this.state.password,
           "role": 2     
       })
-      .then(function (response) {
+      .then(response => {
         console.log(response);
         callToast(
-          "Zarejestrowany pomyślnie."
+          "Zarejestrowano pomyślnie."
         );
+        this.switchToSignIn();
       })
       .catch(function (error) {
         console.log(error);
