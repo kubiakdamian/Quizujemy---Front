@@ -36,7 +36,6 @@ export default class Home extends React.Component{
         axios
         .get(`http://localhost:8080/articles`)
         .then(response => {
-            console.log(response);
           this.setState({
             articles: response.data,
             articlesNumber: response.data.length

@@ -3,11 +3,6 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 
 class QuizPanel extends Component {
-
-    openQuiz = () => (
-        this.props.history.push("/quiz")
-      );
-
     render() {
         return (
             <Quiz className={this.props.styleName} style={{backgroundColor: this.props.color}} onClick={this.props.openQuiz}>

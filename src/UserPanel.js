@@ -6,7 +6,6 @@ import Button from "./user-interface/Button";
 import axios from "axios";
 import Circle from 'react-circle';
 import { callToast } from "./user-interface/alert";
-import { toast } from "react-toastify";
 import curiosityImage from "./images/curiosity4.jpg";
 
 class UserPanel extends Component {
@@ -97,17 +96,22 @@ class UserPanel extends Component {
       }
 
     addAnteroom = () => {
-        axios
-        .post(`http://localhost:8080/anteroom/add`, {content: this.state.curiosity})
-        .then(response => {
-            this.clearContent();
-            callToast("Pomyślnie dodano ciekawostkę");
-            this.getAnterooms();
-        })
-        .catch(error => {
-          console.log(error);
-          callToast("Dodawanie ciekawostki nie powiodło się");
-        });
+        if(this.state.curiosity.length > 19){
+            axios
+            .post(`http://localhost:8080/anteroom/add`, {content: this.state.curiosity})
+            .then(response => {
+                this.clearContent();
+                callToast("Pomyślnie dodano ciekawostkę");
+                this.getAnterooms();
+            })
+            .catch(error => {
+            console.log(error);
+            callToast("Dodawanie ciekawostki nie powiodło się");
+            });
+        }else{
+            callToast("Ciekawostka musi mieć przynajmniej 20 znaków!");
+        }
+        
     }
 
     deleteAnteroom = id => {
@@ -133,7 +137,6 @@ class UserPanel extends Component {
     }
 
     render() {
-        console.log(this.state.anterooms);
         if(this.props.user.role === 2){
             if(this.state.statistics === undefined){
                 return(<div>Loading...</div>);

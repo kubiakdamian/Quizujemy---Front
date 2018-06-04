@@ -15,7 +15,6 @@ class Layout extends React.Component{
     }
 
     render(){
-        console.log(this.props.user);
         return(
             <div className="mynav">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">

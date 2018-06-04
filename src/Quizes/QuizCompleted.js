@@ -37,13 +37,13 @@ class QuizCompleted extends Component {
 
     calculateAnswered = (answers) => {
         var result = 0;
-        result = answers + parseInt(this.props.match.params.maxPoints);
+        result = answers + parseInt(this.props.match.params.maxPoints, 10);
         return result;
     }
 
     calculateCorrect = (correct) => {
         var result = 0;
-        result = correct + parseInt(this.props.match.params.points);
+        result = correct + parseInt(this.props.match.params.points, 10);
         return result;
     }
 
@@ -53,7 +53,6 @@ class QuizCompleted extends Component {
             "correctAnswers": this.calculateCorrect(correct)
         })
         .then(response => {
-            console.log(response);
         })
         .catch(function (error) {
             console.log(error);
@@ -64,7 +63,6 @@ class QuizCompleted extends Component {
         axios
         .get(`http://localhost:8080/user/${this.props.user.id}/statistics`)
         .then(response => {
-            console.log('staty', response.data[0].id);
             this.updateStatistics(response.data[0].id, response.data[0].answeredQuestions, response.data[0].correctAnswers)
         })
         .catch(error => {
@@ -86,7 +84,6 @@ class QuizCompleted extends Component {
     }
 
     render() {
-        console.log(this.state.questions)
         if(this.state.question <= 0 || this.state.answers <= 0){
             return(<div>Loading...</div>)
         }else{

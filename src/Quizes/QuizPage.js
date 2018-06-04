@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import styled from "styled-components";
-import historyImg from '../images/history.jpg';
+import historyImg from '../images/sheet3.png';
 import axios from "axios";
 import {ProgressBar} from 'react-bootstrap';
 import "./style.css";
@@ -104,6 +104,8 @@ const Image = styled.div`
     width: 100%;
     height: auto;
     background-image: url(${historyImg});
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-top: 10vh;
     padding-top: 5vh;
     padding-bottom: 5vh;

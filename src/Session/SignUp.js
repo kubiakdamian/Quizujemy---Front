@@ -83,7 +83,6 @@ class SignUp extends Component {
           "role": 2     
       })
       .then(response => {
-        console.log(response);
         callToast(
           "Zarejestrowano pomyślnie."
         );
@@ -143,13 +142,6 @@ class SignUp extends Component {
 }
 
 export default SignUp;
-
-const options = {
-  autoClose: 3000,
-  type: toast.TYPE.WARN,
-  hideProgressBar: false,
-  position: toast.POSITION.TOP_CENTER
-};
 
 const StyledButton = styled(Button) `
   background-color: rgb(124, 132, 131);

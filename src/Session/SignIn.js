@@ -6,7 +6,6 @@ import axios from "axios";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { callToast } from "../user-interface/alert";
-import { toast } from "react-toastify";
 
 class SignIn extends Component {
   constructor(props) {
@@ -46,7 +45,6 @@ class SignIn extends Component {
             "password": this.state.password 
         })
         .then(response => {
-            console.log(response);
             this.props.dispatch({
                 type: "LOGIN",
                 data: {
@@ -106,13 +104,6 @@ class SignIn extends Component {
 }
 
 export default connect()(withRouter(SignIn));
-
-const options = {
-  autoClose: 3000,
-  type: toast.TYPE.WARN,
-  hideProgressBar: false,
-  position: toast.POSITION.TOP_CENTER
-};
 
 const StyledButton = styled(Button) `
   background-color: rgb(124, 132, 131);
