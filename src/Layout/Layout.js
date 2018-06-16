@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import _ from "lodash";
+import styled from "styled-components";
 import "./style.css";
 
 class Layout extends React.Component{
@@ -19,8 +20,19 @@ class Layout extends React.Component{
             <div className="mynav">
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <a className="navbar-brand" href="/">
-                        Quizujemy
+                        Quizujemy             
                     </a>
+                    <img
+                            src={require('../images/Poland.png')}
+                            style={{ width: "5vh", marginLeft: "1vw"}}
+                            alt = "Polish flag"
+                            onClick = {() => console.log("FLAG")}
+                        />
+                        <img
+                            src={require('../images/UK.png')}
+                            style={{ width: "5vh", marginRight: "14vw"}}
+                            alt = "British flag"
+                        />
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -57,3 +69,7 @@ const mapStateToProps = state => {
   };
 
 export default connect(mapStateToProps)(withRouter(Layout));
+
+const Flag = styled.div`
+
+`
