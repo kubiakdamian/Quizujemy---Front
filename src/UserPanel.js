@@ -14,7 +14,8 @@ class UserPanel extends Component {
         this.state = {
             statistics: {},
             curiosity: "",
-            anterooms: []
+            anterooms: [],
+            selectedFile: null
         };
     }
 
@@ -136,6 +137,24 @@ class UserPanel extends Component {
         });
     }
 
+    fileSelectedHandler = event => {
+        this.setState({
+            selectedFile: event.target.files[0]
+        })
+    }
+
+    fileUploadHandler = () => {
+        const fd = new FormData();
+        fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+        axios.put('', fd)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
     render() {
         if(this.props.user.role === 2){
             if(this.state.statistics === undefined){
@@ -146,6 +165,16 @@ class UserPanel extends Component {
                         <Text style={{fontSize: "4vh"}}>
                             Witaj w panelu użytkownika {this.props.user.email}!
                         </Text>
+                        <Photo className="col-lg-2 offset-lg-5">
+                            <input type="file"
+                                accept="image/*" 
+                                onChange={this.fileSelectedHandler}/>
+                            <StyledButton
+                                onClick={this.fileUploadHandler}               
+                                label={"Dodaj zdjęcie"}
+                                style={{backgroundColor: "rgb(43, 124, 255)"}}
+                            />
+                        </Photo>
                         <Text>
                             Oto Twoje statystyki:
                         </Text>
@@ -245,6 +274,10 @@ const mapStateToProps = state => {
   };
 
 export default connect(mapStateToProps)(withRouter(UserPanel));
+
+const Photo = styled.div`
+
+`
 
 const Text = styled.div`
     text-align: center;
