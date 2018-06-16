@@ -217,70 +217,76 @@ class UserPanel extends Component {
             }else{
                 return (
                     <div>
-                        <Text style={{fontSize: "4vh"}}>
-                            Witaj w panelu użytkownika {this.props.user.email}!
-                        </Text>
-                        <UserPhoto className="col-lg-2 offset-lg-5">
-                            {this.getImage()}
-                        </UserPhoto>
-                        <Photo className="col-lg-2 offset-lg-5">
-                            <input type="file"
-                                name="file"
-                                accept="image/*" 
-                                onChange={this.fileSelectedHandler}/>
-                            <StyledButton
-                                onClick={this.fileUpload}               
-                                label={"Dodaj zdjęcie"}
-                                style={{backgroundColor: "rgb(43, 124, 255)"}}
-                            />
-                        </Photo>
-                        <Text>
-                            Oto Twoje statystyki:
-                        </Text>
-                        <CircleContainer className="col-lg-2 offset-lg-5">
-                            <Circle
-                                animate={true}
-                                responsive={true}
-                                size={150}
-                                lineWidth={50}
-                                progress={this.getPercentage()}
-                                progressColor="rgb(132, 21, 34)" 
-                                bgColor="whitesmoke"
-                                textColor="black"
-                                textStyle={{ 
-                                    textAlign: "center",
-                                    fontFamily: 'Indie Flower',
-                                    fontSize: '8vh',
-                                    color: 'black'
-                                }}
-                                percentSpacing={10}
-                                roundedStroke={true}
-                                showPercentage={true}
-                                showPercentageSymbol={true}
-                            />
-                        </CircleContainer>
-                        <Text>{this.state.statistics.correctAnswers} / {this.state.statistics.answeredQuestions} poprawnych odpowiedzi</Text>
-                        <Text>
-                            Dowiedziałeś się czegoś ciekawego? Podziel się tym z nami, a może trafisz na stronę główną!
-                        </Text>
-                        <InputContainer className="col-lg-6 offset-lg-3">
-                            <div className="form-group">
-                                <label for="exampleFormControlTextarea1">Twoja ciekawostka</label>
-                                <textarea 
-                                    className="form-control"
-                                    id="exampleFormControlTextarea1"
-                                    rows="3"
-                                    onChange={this.updateContent}
-                                    value={this.state.curiosity} />
-                            </div>
-                            <CuriosityButtonContainer>
+                        <Data className = "col-lg-6 offset-lg-3">
+                            <Text style={{fontSize: "4vh"}}>
+                                Witaj w panelu użytkownika {this.props.user.email}!
+                            </Text>
+                            <UserPhoto>
+                                {this.getImage()}
+                            </UserPhoto>
+                            <Photo className="col-lg-4 offset-lg-4">
+                                <input type="file"
+                                    name="file"
+                                    accept="image/*" 
+                                    onChange={this.fileSelectedHandler}/>
                                 <StyledButton
+                                    onClick={this.fileUpload}               
+                                    label={"Dodaj zdjęcie"}
                                     style={{backgroundColor: "rgb(43, 124, 255)"}}
-                                    onClick={this.addAnteroom}               
-                                    label={"Wyślij"}
                                 />
-                            </CuriosityButtonContainer>
-                        </InputContainer>
+                            </Photo>
+                        </Data>
+                        <Data className = "col-lg-6 offset-lg-3">
+                            <Text>
+                                Oto Twoje statystyki:
+                            </Text>
+                            <CircleContainer className="col-lg-4 offset-lg-4">
+                                <Circle
+                                    animate={true}
+                                    responsive={true}
+                                    size={150}
+                                    lineWidth={50}
+                                    progress={this.getPercentage()}
+                                    progressColor="rgb(132, 21, 34)" 
+                                    bgColor="whitesmoke"
+                                    textColor="black"
+                                    textStyle={{ 
+                                        textAlign: "center",
+                                        fontFamily: 'Indie Flower',
+                                        fontSize: '8vh',
+                                        color: 'black'
+                                    }}
+                                    percentSpacing={10}
+                                    roundedStroke={true}
+                                    showPercentage={true}
+                                    showPercentageSymbol={true}
+                                />
+                            </CircleContainer>
+                            <Text>{this.state.statistics.correctAnswers} / {this.state.statistics.answeredQuestions} poprawnych odpowiedzi</Text>
+                        </Data>
+                        <Data className = "col-lg-6 offset-lg-3">
+                            <Text>
+                                Dowiedziałeś się czegoś ciekawego? Podziel się tym z nami, a może trafisz na stronę główną!
+                            </Text>
+                            <InputContainer className="col-lg-8 offset-lg-2">
+                                <div className="form-group">
+                                    <label for="exampleFormControlTextarea1">Twoja ciekawostka</label>
+                                    <textarea 
+                                        className="form-control"
+                                        id="exampleFormControlTextarea1"
+                                        rows="3"
+                                        onChange={this.updateContent}
+                                        value={this.state.curiosity} />
+                                </div>
+                                <CuriosityButtonContainer>
+                                    <StyledButton
+                                        style={{backgroundColor: "rgb(43, 124, 255)"}}
+                                        onClick={this.addAnteroom}               
+                                        label={"Wyślij"}
+                                    />
+                                </CuriosityButtonContainer>
+                            </InputContainer>
+                        </Data>
                         <LogoutButtonContainer className="col-lg-2 offset-lg-5">
                             <StyledButton
                                 onClick={this.logout}               
@@ -334,12 +340,24 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps)(withRouter(UserPanel));
 
-const Photo = styled.div`
+const Data = styled.div`
+  background-color: rgb(201, 213, 232);
+  margin-bottom: 3vh;
+  border-radius: 15px;
+  text-align: center;
+`
 
+const Photo = styled.div`
+    input {
+        display: inline-block;
+        margin-right: auto;
+        margin-left: auto;
+    }
 `
 
 const UserPhoto = styled.div`
-    border-radius: 50%;
+    margin-bottom: 5vh;
+    display: inline-block;
 `
 
 const Text = styled.div`
