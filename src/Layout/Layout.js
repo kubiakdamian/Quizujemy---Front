@@ -120,9 +120,17 @@ class Layout extends React.Component{
 
     render(){
         if(this.props.lang === "PL"){
-            return (this.versionPL());
+            return (
+                this.versionPL()
+            );
         }else if(this.props.lang === "EN"){
-            return(this.versionEN());
+            return(
+                this.versionEN()
+            );
+        }else{
+            return(
+                this.versionPL()
+            );
         }
     }
 }

@@ -17,5 +17,7 @@ const AppWithStore = (
     </div>
   );
 
-ReactDOM.render(AppWithStore, document.getElementById('root'));
+ReactDOM.render(
+  AppWithStore, document.getElementById('root')
+);
 registerServiceWorker();

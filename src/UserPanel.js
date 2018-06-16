@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import styled from "styled-components";
 import Button from "./user-interface/Button";
-import axios from "axios";
+import axios, {put} from "axios";
 import Circle from 'react-circle';
 import { callToast } from "./user-interface/alert";
 import curiosityImage from "./images/curiosity4.jpg";
@@ -15,12 +15,15 @@ class UserPanel extends Component {
             statistics: {},
             curiosity: "",
             anterooms: [],
+            photoId: null,
+            photoPath: null,
             selectedFile: null
         };
     }
 
     componentDidMount(){
         this.getStatistics();
+        this.getPhoto();
         this.getAnterooms();
     }
 
@@ -40,6 +43,47 @@ class UserPanel extends Component {
         });
     }
 
+    createStatistics = () => {
+        axios
+        .post(`http://localhost:8080/user/${this.props.user.id}/statistics`, {})
+        .then(response => {
+            this.getStatistics();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    getPhoto = () => {
+        axios
+        .get(`http://localhost:8080/user/${this.props.user.id}/photo`)
+        .then(response => {
+            if(response.data.length <= 0){
+                this.createPhoto();
+            }else{
+                console.log(response);
+                this.setState({
+                    photoId: response.data[0].id,
+                    photoPath: response.data[0].photo
+                })
+            }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
+    createPhoto = () => {
+        axios
+        .post(`http://localhost:8080/user/${this.props.user.id}/photo`, {})
+        .then(response => {
+            this.getStatistics();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+
     getAnterooms = () => {
         axios
         .get(`http://localhost:8080/anteroom/curiosities`)
@@ -47,17 +91,6 @@ class UserPanel extends Component {
             this.setState({
                 anterooms: response.data
             })
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
-
-    createStatistics = () => {
-        axios
-        .post(`http://localhost:8080/user/${this.props.user.id}/statistics`, {})
-        .then(response => {
-            this.getStatistics();
         })
         .catch(error => {
           console.log(error);
@@ -143,16 +176,38 @@ class UserPanel extends Component {
         })
     }
 
-    fileUploadHandler = () => {
-        const fd = new FormData();
-        fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-        axios.put('', fd)
-        .then(response => {
-            console.log(response);
+    fileUpload = () => {
+        const url = `http://localhost:8080/photo/${this.state.photoId}`;
+        const formData = new FormData();
+        formData.append('file',this.state.selectedFile)
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
+        return put(url, formData,config).then(response => {
+            this.getPhoto();
         })
-        .catch(error => {
-          console.log(error);
-        });
+      }
+
+    getImage = () => {
+        if(this.state.photoPath === null){
+            return(
+                <img
+                    src={require('./uploadedImg/default_user.png')}
+                    style={{ width: "30vh", borderRadius: "50%"}}
+                    alt = "User"
+                />  
+            );
+        }else{
+            return(
+                <img
+                    src={require('./uploadedImg' + this.state.photoPath)}
+                    style={{ width: "30vh", borderRadius: "50%"}}
+                    alt = "User"
+                />  
+            );
+        }
     }
 
     render() {
@@ -165,12 +220,16 @@ class UserPanel extends Component {
                         <Text style={{fontSize: "4vh"}}>
                             Witaj w panelu użytkownika {this.props.user.email}!
                         </Text>
+                        <UserPhoto className="col-lg-2 offset-lg-5">
+                            {this.getImage()}
+                        </UserPhoto>
                         <Photo className="col-lg-2 offset-lg-5">
                             <input type="file"
+                                name="file"
                                 accept="image/*" 
                                 onChange={this.fileSelectedHandler}/>
                             <StyledButton
-                                onClick={this.fileUploadHandler}               
+                                onClick={this.fileUpload}               
                                 label={"Dodaj zdjęcie"}
                                 style={{backgroundColor: "rgb(43, 124, 255)"}}
                             />
@@ -277,6 +336,10 @@ export default connect(mapStateToProps)(withRouter(UserPanel));
 
 const Photo = styled.div`
 
+`
+
+const UserPhoto = styled.div`
+    border-radius: 50%;
 `
 
 const Text = styled.div`
